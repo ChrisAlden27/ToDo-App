@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { CheckSquare, User, ArrowRight, Lock, Mail, UserPlus, LogIn } from 'lucide-react';
+import { CheckSquare, User, Lock, Mail, UserPlus, LogIn } from 'lucide-react';
 
 export function Login() {
   const { login, register, findUserByEmail } = useAuth();
@@ -37,7 +37,7 @@ export function Login() {
         return;
       }
       if (!validatePassword(formData.password)) {
-        setError('Password must contain at least one capital letter, one number, and one special character');
+        setError('Password must be at least 8 characters and contain at least one capital letter, one number, and one special character');
         return;
       }
       
@@ -60,7 +60,7 @@ export function Login() {
     if (isLogin && id === 'email') {
       const existing = findUserByEmail(value);
       if (existing && existing.password) {
-        setFormData(prev => ({ ...prev, password: existing.password }));
+        setFormData(prev => ({ ...prev, password: existing.password ?? '' }));
       }
     }
   };

@@ -117,7 +117,6 @@ export function TodoProvider({ children, userId }: { children: React.ReactNode; 
   );
 }
 
-// eslint-disable-next-line react-refresh/only-export-components
 export function useTodos() {
   const context = useContext(TodoContext);
   if (context === undefined) {

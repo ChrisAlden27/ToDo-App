@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext } from 'react';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 import { toast } from 'sonner';
 
@@ -27,8 +27,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const foundUser = users.find(u => u.email === email && u.password === password);
     if (foundUser) {
       // Don't store password in session
-      const { password, ...userWithoutPassword } = foundUser;
-      setUser(userWithoutPassword as User);
+      setUser({ id: foundUser.id, name: foundUser.name, email: foundUser.email });
       toast.success('Welcome back!');
       return true;
     }
@@ -50,8 +49,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setUsers(prev => [...prev, newUser]);
     
     // Login automatically
-    const { password: _, ...userWithoutPassword } = newUser;
-    setUser(userWithoutPassword as User);
+    setUser({ id: newUser.id, name: newUser.name, email: newUser.email });
     toast.success('Account created successfully!');
     return true;
   };
